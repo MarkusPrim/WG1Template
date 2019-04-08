@@ -138,7 +138,8 @@ class HistComponent:
                  data: np.ndarray,
                  weights: Union[np.ndarray, None],
                  histtype: Union[str, None],
-                 color: Union[str, None]):
+                 color: Union[str, None],
+                 ls: str):
         """
         HistComponent constructor.
         :param label: Component label for the histogram.
@@ -147,12 +148,14 @@ class HistComponent:
         :param histtype: Specifies the histtype of the component in the
         histogram.
         :param color: Color of the histogram component.
+        :param ls: Linestyle of the histogram component.
         """
         self._label = label
         self._data = data
         self._weights = weights
         self._histtype = histtype
         self._color = color
+        self._ls = ls
         self._min = np.amin(data) if len(data) > 0 else +float("inf")
         self._max = np.amax(data) if len(data) > 0 else -float("inf")
 
@@ -175,6 +178,10 @@ class HistComponent:
     @property
     def color(self):
         return self._color
+
+    @property
+    def ls(self):
+        return self._ls
 
     @property
     def min_val(self):
@@ -211,7 +218,8 @@ class HistogramPlot:
                       weights: Union[str, pd.Series, np.ndarray, None] = None,
                       comp_type: str = 'single',
                       histtype: str = 'step',
-                      color: str = None):
+                      color: str = None,
+                      ls: str = 'solid'):
         """
         Add components to the histogram.
 
@@ -222,6 +230,7 @@ class HistogramPlot:
         :param histtype: Specifies the histtype of the component in the
         histogram.
         :param color: Color of the histogram component.
+        :param ls: Linestyle of the histogram component.
         """
 
         if isinstance(weights, float):
@@ -247,7 +256,8 @@ class HistogramPlot:
                               data=data,
                               weights=weights,
                               histtype=histtype,
-                              color=color)
+                              color=color,
+                              ls=ls)
             )
         else:
             raise ValueError(f"Component type {comp_type} not know.")
@@ -370,6 +380,7 @@ class SimpleHistogramPlot(HistogramPlot):
                     edgecolor=edge_color if edge_color is not None else component.color,
                     alpha=alpha,
                     lw=1.5,
+                    ls=component.ls,
                     color=component.color)
 
         ax.set_xlabel(self._variable.x_label, plot_style.xlabel_pos)
@@ -455,14 +466,16 @@ class DataMCHistogramPlot(HistogramPlot):
             data=data,
             weights=None,
             histtype=None,
-            color=None
+            color=None,
+            ls="",
         )
 
     def add_mc_component(self,
                          label: str,
                          data: Union[pd.DataFrame, pd.Series, np.ndarray],
                          weights: Union[str, pd.Series, np.ndarray, None] = None,
-                         color: str = None):
+                         color: str = None,
+                         ls: str = 'solid'):
 
         if isinstance(data, pd.Series):
             data = data.values
@@ -487,7 +500,8 @@ class DataMCHistogramPlot(HistogramPlot):
                 data=data,
                 weights=weights,
                 histtype=None,
-                color=color
+                color=color,
+                ls=ls,
             )
         )
 

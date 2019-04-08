@@ -72,7 +72,7 @@ def example_combo_plot():
 
     hp2 = SimpleHistogramPlot(dummy_var)
     hp2.add_component("Signal Shape x0.5", sig.DummyVariable, weights=sig.__weight__ * 0.5,
-                      color=TangoColors.scarlet_red)
+                      color=TangoColors.scarlet_red, ls='-.')
 
     fig, ax = create_solo_figure()
     hp1.plot_on(ax, ylabel="Candidates")
@@ -97,7 +97,7 @@ def example2_combo_plot():
 
     hp2 = SimpleHistogramPlot(dummy_var)
     hp2.add_component("Signal Shape x0.5", sig.DummyVariable, weights=sig.__weight__ * 0.5,
-                      color=TangoColors.scarlet_red)
+                      color=TangoColors.scarlet_red, ls='dotted')
 
     fig, ax = create_hist_ratio_figure()
     hp1.plot_on(ax[0], ax[1], style='stacked', ylabel="Candidates")
