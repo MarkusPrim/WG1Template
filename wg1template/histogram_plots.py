@@ -347,7 +347,8 @@ class SimpleHistogramPlot(HistogramPlot):
                 legend_inside: bool = True,
                 yaxis_scale=1.3,
                 normed: bool = False,
-                ylabel="Events") -> plt.axis:
+                ylabel="Events",
+                hide_labels: bool = False) -> plt.axis:
         """
         Plots the component on a given matplotlib.pyplot.axis
 
@@ -383,10 +384,11 @@ class SimpleHistogramPlot(HistogramPlot):
                     ls=component.ls,
                     color=component.color)
 
-        ax.set_xlabel(self._variable.x_label, plot_style.xlabel_pos)
+        if not hide_labels:
+            ax.set_xlabel(self._variable.x_label, plot_style.xlabel_pos)
 
-        y_label = self._get_y_label(normed=normed, bin_width=bin_width, evts_or_cand=ylabel)
-        ax.set_ylabel(y_label, plot_style.ylabel_pos)
+            y_label = self._get_y_label(normed=normed, bin_width=bin_width, evts_or_cand=ylabel)
+            ax.set_ylabel(y_label, plot_style.ylabel_pos)
 
         if draw_legend:
             if legend_inside:
@@ -409,7 +411,7 @@ class StackedHistogramPlot(HistogramPlot):
         """
         super().__init__(variable=variable)
 
-    def plot_on(self, ax: plt.axis, ylabel="Events", draw_legend=True, legend_inside=True):
+    def plot_on(self, ax: plt.axis, ylabel="Events", draw_legend=True, legend_inside=True, hide_labels: bool = False):
         bin_edges, bin_mids, bin_width = self._get_bin_edges()
 
         self._bin_edges = bin_edges
@@ -427,9 +429,10 @@ class StackedHistogramPlot(HistogramPlot):
                 histtype='stepfilled'
                 )
 
-        ax.set_xlabel(self._variable.x_label, plot_style.xlabel_pos)
-        y_label = self._get_y_label(False, bin_width, ylabel)
-        ax.set_ylabel(y_label, plot_style.ylabel_pos)
+        if not hide_labels:
+            ax.set_xlabel(self._variable.x_label, plot_style.xlabel_pos)
+            y_label = self._get_y_label(False, bin_width, ylabel)
+            ax.set_ylabel(y_label, plot_style.ylabel_pos)
         if draw_legend:
             if legend_inside:
                 ax.legend(frameon=False)
