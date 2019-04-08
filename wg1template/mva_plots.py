@@ -1,11 +1,10 @@
+from typing import Tuple, Optional
+
 import matplotlib.pyplot as plt
 import numpy as np
-
-from wg1template.plot_style import set_matplotlibrc_params, xlabel_pos, ylabel_pos, KITColors
-
 from sklearn.metrics import roc_curve, roc_auc_score
 
-from typing import Tuple, Optional
+from wg1template.plot_style import set_matplotlibrc_params, xlabel_pos, ylabel_pos, KITColors
 
 
 def plot_roc_curve(

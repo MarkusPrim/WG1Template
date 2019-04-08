@@ -3,13 +3,12 @@ This module contains functions and classes for plotting various kinds of
 histograms of given data.
 """
 import itertools
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-
 from collections import defaultdict
 from typing import Tuple, Union
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from scipy.stats import binned_statistic
 from uncertainties import unumpy as unp
 

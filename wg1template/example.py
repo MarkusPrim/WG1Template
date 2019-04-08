@@ -18,13 +18,16 @@ def example_simple_histogram_plot():
         additional_info='WG1 Preliminary Plot Style\nSimpleHistogramPlot'
     )
     plt.show()
+    export(fig, 'simple', 'examples')
     plt.close()
 
 
 def example_stacked_histogram_plot():
     hp = StackedHistogramPlot(dummy_var)
-    hp.add_component("Continum", cont.DummyVariable, weights=cont.__weight__, color=TangoColors.slate, comp_type='stacked')
-    hp.add_component("Background", bkg.DummyVariable, weights=bkg.__weight__, color=TangoColors.sky_blue, comp_type='stacked')
+    hp.add_component("Continum", cont.DummyVariable, weights=cont.__weight__, color=TangoColors.slate,
+                     comp_type='stacked')
+    hp.add_component("Background", bkg.DummyVariable, weights=bkg.__weight__, color=TangoColors.sky_blue,
+                     comp_type='stacked')
     hp.add_component("Signal", sig.DummyVariable, weights=sig.__weight__, color=TangoColors.orange, comp_type='stacked')
     fig, ax = create_solo_figure()
     hp.plot_on(ax, ylabel="Candidates")

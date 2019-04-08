@@ -1,11 +1,10 @@
 """
 This file contains general settings for plots using matplotlib.
 """
-import matplotlib.pyplot as plt
-
-from cycler import cycler
-
 from collections import OrderedDict
+
+import matplotlib.pyplot as plt
+from cycler import cycler
 
 
 class KITColors(object):

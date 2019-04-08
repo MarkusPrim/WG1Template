@@ -3,11 +3,11 @@ This module contains utility functions for the plots in plots.py
 """
 
 import os
+from typing import Union, Optional, Tuple, Dict
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
-from typing import Union, Optional, Tuple, Dict
 
 
 def export(
