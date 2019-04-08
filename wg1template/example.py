@@ -1,3 +1,5 @@
+import scipy.stats
+
 from wg1template.histogram_plots import *
 from wg1template.plot_style import TangoColors
 from wg1template.plot_utilities import export
@@ -113,6 +115,34 @@ def example2_combo_plot():
     plt.close()
 
 
+def example3_combo_plot():
+    hp = DataMCHistogramPlot(dummy_var)
+    hp.add_mc_component("Continum", cont.DummyVariable, weights=cont.__weight__, color=TangoColors.slate)
+    hp.add_mc_component("Background", bkg.DummyVariable, weights=bkg.__weight__, color=TangoColors.sky_blue)
+    hp.add_mc_component("Signal", sig.DummyVariable, weights=sig.__weight__, color=TangoColors.orange)
+    hp.add_data_component("Data", data)
+    fig, ax = create_hist_ratio_figure()
+    hp.plot_on(ax[0], ax[1], style="stacked", ylabel="Candidates")
+    add_descriptions_to_plot(
+        ax[0],
+        experiment='Belle',
+        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot\n+SomeFunction'
+    )
+
+    # Let's add some functions
+    ax[0].plot(
+        np.linspace(*dummy_var.scope),
+        500 * scipy.stats.norm(2).pdf(np.linspace(*dummy_var.scope)),
+        label="Some function", color=TangoColors.chameleon,
+    )
+    ax[0].legend(frameon=False)
+
+    plt.show()
+    export(fig, 'combo3', 'examples')
+    plt.close()
+
+
 if __name__ == '__main__':
     # MC samples
     sig = pd.DataFrame({
@@ -148,3 +178,4 @@ if __name__ == '__main__':
 
     example_combo_plot()
     example2_combo_plot()
+    example3_combo_plot()
