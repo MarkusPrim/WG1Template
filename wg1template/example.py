@@ -81,7 +81,7 @@ def example_combo_plot():
         ax,
         experiment='Belle',
         luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
-        additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
+        additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot\n+SimpleHistogramPlot'
     )
     plt.show()
     export(fig, 'combo', 'examples')
@@ -106,7 +106,7 @@ def example2_combo_plot():
         ax[0],
         experiment='Belle',
         luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
-        additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
+        additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot\n+SimpleHistogramPlot'
     )
     plt.show()
     export(fig, 'combo2', 'examples')
@@ -116,23 +116,23 @@ def example2_combo_plot():
 if __name__ == '__main__':
     # MC samples
     sig = pd.DataFrame({
-        'DummyVariable': 5 + np.random.randn(20000) * 0.5,
-        '__weight__': 0.5 * np.ones(20000)
+        'DummyVariable': 5 + np.random.randn(2000) * 0.5,
+        '__weight__': 0.5 * np.ones(2000)
     })
     bkg = pd.DataFrame({
-        'DummyVariable': 7 + np.random.randn(20000) * 2,
-        '__weight__': 0.5 * np.ones(20000),
+        'DummyVariable': 7 + np.random.randn(2000) * 2,
+        '__weight__': 0.5 * np.ones(2000),
     })
     cont = pd.DataFrame({
-        'DummyVariable': np.random.uniform(0, 10, 6000),
-        '__weight__': 0.5 * np.ones(6000)
+        'DummyVariable': np.random.uniform(0, 10, 600),
+        '__weight__': 0.5 * np.ones(600)
     })
 
     # Generate a fake data distribution
     data = pd.concat((
-        pd.DataFrame({'DummyVariable': 5 + np.random.randn(10000) * 0.5}),
-        pd.DataFrame({'DummyVariable': 7 + np.random.randn(10000) * 2}),
-        pd.DataFrame({'DummyVariable': np.random.uniform(0, 10, 3000)}),
+        pd.DataFrame({'DummyVariable': 5 + np.random.randn(1000) * 0.5}),
+        pd.DataFrame({'DummyVariable': 7 + np.random.randn(1000) * 2}),
+        pd.DataFrame({'DummyVariable': np.random.uniform(0, 10, 300)}),
     ))
 
     # Define how this variable should be presented, bins, scope, unit label, etc...
