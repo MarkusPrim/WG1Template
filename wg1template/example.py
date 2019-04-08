@@ -1,5 +1,6 @@
 from wg1template.histogram_plots import *
 from wg1template.plot_style import TangoColors
+from wg1template.plot_utilities import export
 
 
 def example_simple_histogram_plot():
@@ -34,6 +35,7 @@ def example_stacked_histogram_plot():
         additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
     )
     plt.show()
+    export(fig, 'stacked', 'examples')
     plt.close()
 
 
@@ -52,6 +54,7 @@ def example_data_mc_histogram_plot():
         additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot'
     )
     plt.show()
+    export(fig, 'data-mc', 'examples')
     plt.close()
 
 
@@ -78,6 +81,7 @@ def example_combo_plot():
         additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
     )
     plt.show()
+    export(fig, 'combo', 'examples')
     plt.close()
 
 
@@ -102,6 +106,7 @@ def example2_combo_plot():
         additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
     )
     plt.show()
+    export(fig, 'combo2', 'examples')
     plt.close()
 
 
