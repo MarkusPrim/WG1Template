@@ -1,6 +1,7 @@
 import scipy.stats
 
 from wg1template.histogram_plots import *
+from wg1template.point_plots import *
 from wg1template.plot_style import TangoColors
 from wg1template.plot_utilities import export
 
@@ -143,6 +144,36 @@ def example3_combo_plot():
     plt.close()
 
 
+def example_data_plot():
+    x = np.linspace(0.5, 10.5, num=10)
+    y = np.array([np.random.normal(a, 1) for a in x])
+    x_err = 0.5 * np.ones(10)
+    y_err = np.ones(10)
+
+    variable = DataVariable(r"x-variable", r"x-units", r"y-variable", "y-units")
+    points = DataPoints(
+        x_values=x,
+        y_values=y,
+        x_errors=x_err,
+        y_errors=y_err,
+    )
+
+    dp = DataPointsPlot(variable)
+    dp.add_component("Data Label", points)
+
+    fig, ax = create_solo_figure(figsize=(5, 5))
+    dp.plot_on(ax)
+    add_descriptions_to_plot(
+        ax,
+        experiment='Can be misused',
+        luminosity='This too',
+        additional_info=r'Some process'
+    )
+    plt.show()
+    export(fig, 'data', 'examples')
+    plt.close()
+
+
 if __name__ == '__main__':
     # MC samples
     sig = pd.DataFrame({
@@ -179,3 +210,5 @@ if __name__ == '__main__':
     example_combo_plot()
     example2_combo_plot()
     example3_combo_plot()
+
+    example_data_plot()

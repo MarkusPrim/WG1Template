@@ -605,8 +605,8 @@ def create_hist_ratio_figure():
     return plt.subplots(2, 1, figsize=(5, 5), dpi=200, sharex=True, gridspec_kw={"height_ratios": [3.5, 1]})
 
 
-def create_solo_figure():
-    return plt.subplots(1, 1, figsize=(5, 5), dpi=200)
+def create_solo_figure(figsize=(5, 5)):
+    return plt.subplots(1, 1, figsize=figsize, dpi=200)
 
 
 def add_descriptions_to_plot(ax: plt.axis,
