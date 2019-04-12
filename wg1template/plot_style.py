@@ -135,12 +135,16 @@ def set_matplotlibrc_params():
     legend = {
         'frameon': False
     }
+    errorbar = {
+        'capsize': 2
+    }
 
     plt.rc('lines', **lines)
     plt.rc('axes', **axes)
     plt.rc('xtick', **xtick)
     plt.rc('ytick', **ytick)
     plt.rc('legend', **legend)
+    plt.rc('errorbar', **errorbar)
 
 
 def set_default_colors(color_cycler):

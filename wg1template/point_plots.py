@@ -20,7 +20,7 @@ class DataVariable:
         self.x_unit = x_unit
         self.x_label = x_name + f' in {x_unit}' if x_unit else x_name
         self.y_unit = y_unit
-        self.y_label = y_name + f' in {y_unit}' if y_unit else x_name
+        self.y_label = y_name + f' in {y_unit}' if y_unit else y_name
 
 
 class DataPoints:
@@ -43,12 +43,14 @@ class DataComponent:
                  label: str,
                  data: DataPoints,
                  color: Union[str, None] = 'black',
-                 ls: str = ''):
+                 ls: str = '',
+                 marker: str = 'o'):
 
         self.label = label
         self.data = data
         self.color = color
         self.ls = ls
+        self.marker = marker
 
 
 class DataPointsPlot:
@@ -63,23 +65,26 @@ class DataPointsPlot:
                       data_points: DataPoints,
                       color: Union[str, None] = 'black',
                       ls: str = '',
+                      marker: str = 'o',
                       ):
         self.components.append(DataComponent(
             label,
             data_points,
             color,
             ls,
+            marker
         ))
 
     def plot_on(self,
                 ax: plt.axis,
                 draw_legend: bool = True,
                 legend_inside: bool = True,
+                legend_kwargs: dict = {},
                 yaxis_scale=1.3,
                 hide_labels: bool = False) -> plt.axis:
 
         for component in self.components:
-            ax.errorbar(
+            (_, caps, _) = ax.errorbar(
                 component.data.x_values,
                 component.data.y_values,
                 yerr=component.data.y_errors,
@@ -87,18 +92,8 @@ class DataPointsPlot:
                 label=component.label,
                 color=component.color,
                 ls=component.ls,
+                marker=component.marker,
             )
-            # ax.hist(x=component.data,
-            #         bins=bin_edges,
-            #         density=normed,
-            #         weights=component.weights,
-            #         histtype=component.histtype,
-            #         label=component.label,
-            #         edgecolor=edge_color if edge_color is not None else component.color,
-            #         alpha=alpha,
-            #         lw=1.5,
-            #         ls=component.ls,
-            #         color=component.color)
 
         if not hide_labels:
             ax.set_xlabel(self.variable.x_label, plot_style.xlabel_pos)
@@ -106,10 +101,10 @@ class DataPointsPlot:
 
         if draw_legend:
             if legend_inside:
-                ax.legend(frameon=False)
+                ax.legend(frameon=False, **legend_kwargs)
                 ylims = ax.get_ylim()
                 ax.set_ylim(ylims[0], yaxis_scale * ylims[1])
             else:
-                ax.legend(frameon=False, bbox_to_anchor=(1, 1))
+                ax.legend(frameon=False, bbox_to_anchor=(1, 1), **legend_kwargs)
 
         return ax
