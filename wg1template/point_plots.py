@@ -44,13 +44,14 @@ class DataComponent:
                  data: DataPoints,
                  color: Union[str, None] = 'black',
                  ls: str = '',
-                 marker: str = 'o'):
-
+                 marker: str = 'o',
+                 style: str = 'point'):
         self.label = label
         self.data = data
         self.color = color
         self.ls = ls
         self.marker = marker
+        self.style = style
 
 
 class DataPointsPlot:
@@ -66,13 +67,15 @@ class DataPointsPlot:
                       color: Union[str, None] = 'black',
                       ls: str = '',
                       marker: str = 'o',
+                      style: str = 'point',
                       ):
         self.components.append(DataComponent(
             label,
             data_points,
             color,
             ls,
-            marker
+            marker,
+            style
         ))
 
     def plot_on(self,
@@ -81,19 +84,34 @@ class DataPointsPlot:
                 legend_inside: bool = True,
                 legend_kwargs: dict = {},
                 yaxis_scale=1.3,
-                hide_labels: bool = False) -> plt.axis:
+                hide_labels: bool = False,
+                ) -> plt.axis:
 
         for component in self.components:
-            (_, caps, _) = ax.errorbar(
-                component.data.x_values,
-                component.data.y_values,
-                yerr=component.data.y_errors,
-                xerr=component.data.x_errors,
-                label=component.label,
-                color=component.color,
-                ls=component.ls,
-                marker=component.marker,
-            )
+            if component.style == 'point':
+                ax.errorbar(
+                    component.data.x_values,
+                    component.data.y_values,
+                    yerr=component.data.y_errors,
+                    xerr=component.data.x_errors,
+                    label=component.label,
+                    color=component.color,
+                    ls=component.ls,
+                    marker=component.marker,
+                )
+            elif component.style == 'box':
+                ax.bar(
+                    component.data.x_values,
+                    2 * component.data.y_errors,
+                    width=2 * component.data.x_errors,
+                    bottom=component.data.y_values - component.data.y_errors,
+                    label=component.label,
+                    color=component.color,
+                    alpha=0.5
+                )
+            else:
+                raise NotImplementedError(
+                    "Options: point|box. If you require a new kind of plot, report a feature request")
 
         if not hide_labels:
             ax.set_xlabel(self.variable.x_label, plot_style.xlabel_pos)

@@ -151,7 +151,18 @@ def example_data_plot():
     y_err = np.ones(10)
 
     variable = DataVariable(r"x-variable", r"x-units", r"y-variable", "y-units")
-    points = DataPoints(
+    measured = DataPoints(
+        x_values=x,
+        y_values=y,
+        x_errors=x_err,
+        y_errors=y_err,
+    )
+
+    x = np.linspace(0.5, 10.5, num=10)
+    y = np.array([np.random.normal(a, 1) for a in x])
+    x_err = 0.5 * np.ones(10)
+    y_err = np.ones(10)*0.5
+    theory = DataPoints(
         x_values=x,
         y_values=y,
         x_errors=x_err,
@@ -159,7 +170,8 @@ def example_data_plot():
     )
 
     dp = DataPointsPlot(variable)
-    dp.add_component("Data Label", points)
+    dp.add_component("Data Label", measured, style='point')
+    dp.add_component("Theory Label", theory, style='box', color=TangoColors.scarlet_red)
 
     fig, ax = create_solo_figure(figsize=(5, 5))
     dp.plot_on(ax)
