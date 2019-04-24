@@ -16,8 +16,8 @@ def example_simple_histogram_plot():
     hp2.plot_on(ax)
     add_descriptions_to_plot(
         ax,
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nSimpleHistogramPlot'
     )
     plt.show()
@@ -36,8 +36,8 @@ def example_stacked_histogram_plot():
     hp.plot_on(ax, ylabel="Candidates")
     add_descriptions_to_plot(
         ax,
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot'
     )
     plt.show()
@@ -55,8 +55,8 @@ def example_data_mc_histogram_plot():
     hp.plot_on(ax[0], ax[1], style="stacked", ylabel="Candidates")
     add_descriptions_to_plot(
         ax[0],
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot'
     )
     plt.show()
@@ -82,8 +82,8 @@ def example_combo_plot():
     hp2.plot_on(ax, hide_labels=True)  # Hide labels to prevent overrides)
     add_descriptions_to_plot(
         ax,
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nStackedHistogramPlot\n+SimpleHistogramPlot'
     )
     plt.show()
@@ -107,8 +107,8 @@ def example2_combo_plot():
     hp2.plot_on(ax[0], hide_labels=True)  # Hide labels to prevent overrides
     add_descriptions_to_plot(
         ax[0],
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot\n+SimpleHistogramPlot'
     )
     plt.show()
@@ -126,8 +126,8 @@ def example3_combo_plot():
     hp.plot_on(ax[0], ax[1], style="stacked", ylabel="Candidates")
     add_descriptions_to_plot(
         ax[0],
-        experiment='Belle',
-        luminosity=r"$\int \mathcal{L} \,dt=711\,\mathrm{fb}^{-1}$",
+        experiment='Belle II',
+        luminosity=r"$\int \mathcal{L} \,dt=5\,\mathrm{fb}^{-1}$",
         additional_info='WG1 Preliminary Plot Style\nDataMCHistogramPlot\n+SomeFunction'
     )
 
