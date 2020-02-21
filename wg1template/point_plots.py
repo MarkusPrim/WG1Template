@@ -24,18 +24,30 @@ class DataVariable:
 
 
 class DataPoints:
-
+    
     def __init__(self,
                  x_values: Union[list, np.array],
                  y_values: Union[list, np.array],
                  x_errors: Union[list, np.array, None] = None,
+                 x_errorsUp: Union[list, np.array, None] = None,
+                 x_errorsLow: Union[list, np.array, None] = None,
                  y_errors: Union[list, np.array, None] = None,
+                 y_errorsUp: Union[list, np.array, None] = None,
+                 y_errorsLow: Union[list, np.array, None] = None
                  ):
         self.x_values = x_values
         self.y_values = y_values
-        self.x_errors = x_errors
-        self.y_errors = y_errors
 
+        # allow asymmetric errorbars
+        if isinstance(x_errorsUp, (list, np.ndarray)) and isinstance(x_errorsLow, (list, np.ndarray)):
+                self.x_errors = (x_errorsLow, x_errorsUp)
+        else:
+                self.x_errors = x_errors
+
+        if isinstance(y_errorsUp, (list, np.ndarray)) and isinstance(y_errorsLow, (list, np.ndarray)):
+                self.y_errors = (y_errorsLow, y_errorsUp)
+        else:
+                self.y_errors = y_errors
 
 class DataComponent:
 
